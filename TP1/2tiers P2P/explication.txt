@@ -1,0 +1,111 @@
+D'accord, commençons par la première étape :
+représenter plusieurs espèces de canards avec des comportements spécifiques de vol et de cancanement en utilisant le design pattern Strategy.
+
+1. Traduire le diagramme de classe en programme Python :
+___________________________________________________________________________________________________________
+# Définition de l'interface pour le comportement de vol
+class FlyBehavior:
+    def fly(self):
+        pass
+
+# Implémentation de différents comportements de vol
+class FlyWithWings(FlyBehavior):
+    def fly(self):
+        print("Je vole avec mes ailes !")
+
+class FlyNoWay(FlyBehavior):
+    def fly(self):
+        print("Je ne sais pas voler.")
+
+# Définition de l'interface pour le comportement de cancanement
+class QuackBehavior:
+    def quack(self):
+        pass
+
+# Implémentation de différents comportements de cancanement
+class Quack(QuackBehavior):
+    def quack(self):
+        print("Cancan !")
+
+class Squeak(QuackBehavior):
+    def quack(self):
+        print("Pia pia !")
+
+# Classe de base pour tous les canards
+class Duck:
+    def __init__(self, fly_behavior, quack_behavior):
+        self.fly_behavior = fly_behavior
+        self.quack_behavior = quack_behavior
+
+    def perform_fly(self):
+        self.fly_behavior.fly()
+
+    def perform_quack(self):
+        self.quack_behavior.quack()
+
+    def swim(self):
+        print("Je nage !")
+
+    def display(self):
+        pass
+
+# Implémentation de canards spécifiques
+class MallardDuck(Duck):
+    def display(self):
+        print("Je suis un colvert.")
+
+class RedheadDuck(Duck):
+    def display(self):
+        print("Je suis un canard roux.")
+
+# Utilisation
+if __name__ == "__main__":
+    mallard = MallardDuck(FlyWithWings(), Quack())
+    redhead = RedheadDuck(FlyNoWay(), Squeak())
+
+    mallard.display()
+    mallard.perform_fly()
+    mallard.perform_quack()
+
+    redhead.display()
+    redhead.perform_fly()
+    redhead.perform_quack()
+___________________________________________________________________________________________________________
+Cette implémentation utilise le pattern Strategy pour gérer les comportements de vol et de cancanement de manière flexible et interchangeable.
+
+
+
+
+
+
+
+
+2. Autoriser le changement de comportement à l'exécution :
+
+Nous avons déjà implémenté cette fonctionnalité dans le code ci-dessus.
+Vous pouvez voir comment les comportements de vol et de cancanement sont encapsulés dans des objets séparés (FlyBehavior et QuackBehavior) et comment ils sont assignés dynamiquement aux canards lors de leur création.
+
+
+
+
+
+
+
+
+3. Créer un nouveau type de canard en bois :
+
+Vous pouvez ajouter une nouvelle classe WoodenDuck qui hérite de Duck et définit des comportements de vol et de cancanement spécifiques pour les canards en bois. Par exemple :
+___________________________________________________________________________________________________________
+class WoodenDuck(Duck):
+    def __init__(self):
+        super().__init__(FlyNoWay(), Quack())
+
+    def display(self):
+        print("Je suis un canard en bois.")
+___________________________________________________________________________________________________________
+
+
+
+Ainsi, vous pouvez maintenant créer des instances de WoodenDuck et les utiliser de la même manière que les autres canards, mais avec des comportements de vol et de cancanement spécifiques.
+
+Cette première étape vous permettra de mettre en place une base solide pour la suite du TP. Une fois que vous avez implémenté ces classes, vous pouvez les tester pour vous assurer qu'elles fonctionnent comme prévu.
